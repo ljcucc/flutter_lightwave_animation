@@ -167,7 +167,36 @@ LiquidShockwaveContainer(
 
 ---
 
-## 5. Troubleshooting
+## 5. Optical Architecture & EDR Support
+
+### Origin Bloom Orb & Dynamic Dissipation
+- At the touch or directional launch point (`uOrigin`), a soft white blurred glow orb appears with a base radius of $\ge 300\text{px}$ (diameter $\ge 600\text{px}$).
+- During wave propagation, the point glow stays at the origin in place, expanding by up to $1.85\times$ ($\approx 550\text{px+}$ radius) while fading out gracefully.
+- **Wave Displacement**: Features deep organic liquid refraction (`0.070` UV displacement) and a broader wavefront (`0.12 * maxRadius`).
+
+### Selective EDR (Extended Dynamic Range)
+- Instead of blowing out the entire screen to flat white, the shader utilizes a **two-tier optical profile**:
+  - **Concentrated EDR Nucleus (`hotCore`)**: Inside the inner core, brightness reaches **$\approx 2.20$**, exceeding standard 1.0 SDR luminance to illuminate HDR/EDR highlights on Apple Liquid Retina XDR and modern OLED screens.
+  - **Soft SDR Halo (`softHalo`)**: Across the outer $100\text{px} \sim 550\text{px}$, brightness falls off smoothly from $0.65 \to 0.0$, preserving a creamy, natural gradient without clipping.
+- **Enabling EDR in macOS Apps (`MainFlutterWindow.swift`)**:
+  ```swift
+  import QuartzCore
+  // Inside MainFlutterWindow.awakeFromNib()
+  DispatchQueue.main.async {
+    func enableEDR(layer: CALayer?) {
+      guard let layer = layer else { return }
+      if let metalLayer = layer as? CAMetalLayer {
+        metalLayer.wantsExtendedDynamicRangeContent = true
+      }
+      layer.sublayers?.forEach { enableEDR(layer: $0) }
+    }
+    enableEDR(layer: flutterViewController.view.layer)
+  }
+  ```
+
+---
+
+## 6. Troubleshooting
 
 - **`Permission denied (publickey)` during `flutter pub get`:**
   - Verify your SSH key is added: `ssh-add -l`.

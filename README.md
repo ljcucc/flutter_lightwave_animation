@@ -70,6 +70,8 @@ shockwaveKey.currentState?.trigger(const Offset(200, 400));
 ## Features
 
 - **Directional Triggers**: Bottom, Top, Left, Right, Center, Corners, or exact touch offsets.
+- **Origin Bloom Glow & Selective EDR**: 300px+ radiant light orb at trigger origin expanding to ~550px+ while dissipating; features selective EDR (~2.20 peak) hot-core highlighting for Apple Liquid Retina XDR / OLED displays without flat white blowout.
+- **Deep Refractive Displacement**: 2x intensified organic liquid bulge (`0.070` UV displacement) with broad wave span and isotropic aspect-ratio correction.
 - **Speed & Duration Control**: Set global duration on widget or override per trigger call (`triggerFromSide(side, customDuration)`).
 - **Snapshot Mode**: Single-frame capture on trigger, ultra-lightweight 120 FPS rendering.
 - **Live Sampling Mode (`liveSampling: true`)**: Synchronous layer capture via `toImageSync()` allowing live animations (GIFs, media-kit video, Lottie) to keep moving while being distorted.
