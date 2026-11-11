@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cupertino_ui: ^1.1.6
+  material_ui: ^1.11.0
   liquid_shockwave:
     path: ..
 
